@@ -1,4 +1,5 @@
 import json
+import nltk
 import time
 class Wordgame:
         
@@ -6,6 +7,10 @@ class Wordgame:
         self.searchLetters = ["A", "L"]
         self.user_score = 0
         self.userLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        self.words = nltk.corpus.words.words()
+    def getWords(self):
+        return self.words
+    
     def getUserLetters(self):
         return self.userLetters
     def removeUserLetters(self, remove):
@@ -71,18 +76,20 @@ while(done):
     Wordgame1.displayBoard()
     inputuser = input("Enter a word: ").upper()
     inputuserList = list(inputuser)
-    for i in inputuserList:
-        if i in Wordgame1.getsearchLetters();
-            
+    if getWord()s
 
-        else:
-            if i in Wordgame1.getUserLetters():
-                Wordgame1.removeUserLetters(i)
-                Wordgame1.changeScore(10)
+        for i in inputuserList:
+            if i in Wordgame1.getsearchLetters():
+                
+
             else:
-                Wordgame1.changeScore(-5)
-    if len(Wordgame1.getUserLetters()) == 0:
-        done = False
+                if i in Wordgame1.getUserLetters():
+                    Wordgame1.removeUserLetters(i)
+                    Wordgame1.changeScore(10)
+                else:
+                    Wordgame1.changeScore(-5)
+        if len(Wordgame1.getUserLetters()) == 0:
+            done = False
 
 
 Wordgame1.displayBoard()

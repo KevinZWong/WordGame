@@ -5,7 +5,7 @@ from itertools import product
 import json
 
 
-class WordGeneration:
+class WordProcessing
     def __init__():
         pass
 
@@ -64,6 +64,7 @@ class WordGeneration:
         with open(fileName, "w") as file:
             # write the data to the file in JSON format
             json.dump(finalWord, file)
+        return fileName
 
 
 
