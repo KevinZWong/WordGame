@@ -5,8 +5,8 @@ from itertools import product
 import json
 
 
-class WordProcessing
-    def __init__():
+class WordProcessing:
+    def __init__(self):
         pass
 
     def generate(self, searchLetters):
@@ -66,5 +66,18 @@ class WordProcessing
             json.dump(finalWord, file)
         return fileName
 
+    def findBestWords(self, searchLetters, userLetters, WordsList):
+        maxFound = 0
+        
+        for word in WordsList:
+            charList = list(word)
+            counter = 0
+            for letter in charList:
+                if letter in userLetters:
+                    counter += 1
+            
+
+        
+        pass
 
 

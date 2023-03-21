@@ -76,7 +76,7 @@ while(done):
     Wordgame1.displayBoard()
     inputuser = input("Enter a word: ").upper()
     inputuserList = list(inputuser)
-    if getWord()s
+    if getWord()
 
         for i in inputuserList:
             if i in Wordgame1.getsearchLetters():

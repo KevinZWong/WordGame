@@ -1,8 +1,9 @@
 import json
 import nltk
 import time
-
-
+import random 
+from WordGeneration import WordProcessing
+import copy
 def binary_search( arr, target):
     # define the starting and ending indices
     left = 0
@@ -43,17 +44,23 @@ def displayBoard(searchLetters, user_score, userLetters):
     print("Score: ", user_score)
     print(displayScore)
     print("Letters Left:", userLetters)
-        
 
+'''
 with open("AL_generatedWords.json", "r") as file:
     # read the JSON data from the file
     data = json.load(file)
+'''
 
-searchLetters = ["A", "L"]
+
+WordProcessingObj = WordProcessing()
 user_score = 0
 userLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+searchLetters = [userLetters[random.randint(0, 24)], userLetters[random.randint(0, 24)]]
 words = nltk.corpus.words.words()
-
+dataName = WordProcessingObj.generate(searchLetters)
+with open(dataName, "r") as file:
+    # read the JSON data from the file
+    data = json.load(file)
 done = True
 print("Rules:")
 print("Type an enlish word that contains the letters shown Ex: ...A...L...")
@@ -66,21 +73,26 @@ while(done):
     displayBoard(searchLetters, user_score, userLetters)
     inputuser = input("Enter a word: ").upper()
     inputuserList = list(inputuser)
-    if (binary_search(data, inputuser) != -1):
-        for i in inputuserList:
-            if i in userLetters:
-                userLetters.remove(i)
-                user_score += 10
+    #if (binary_search(data, inputuser) != -1):
+    searchLetters_copy = copy.deepcopy(searchLetters)
+    print("searchLetters", searchLetters)
+    print("searchLetters_copy", searchLetters_copy)
+    for i in inputuserList:
+        if i in userLetters:
+            userLetters.remove(i)
+            user_score += 10
+        else:
+            if (i in searchLetters_copy):
+                searchLetters_copy.remove(i)
             else:
                 user_score -= 5
-        if len(userLetters) == 0:
-            done = False
-    else:
-        print(inputuser,"is not a valid word")
+    if len(userLetters) == 0:
+        done = False
+    #else:
+    #    print(inputuser,"is not a valid word")
 
 
 displayBoard(searchLetters, user_score, userLetters)
-
 
 
 
