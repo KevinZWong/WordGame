@@ -45,22 +45,34 @@ def displayBoard(searchLetters, user_score, userLetters):
     print(displayScore)
     print("Letters Left:", userLetters)
 
-'''
-with open("AL_generatedWords.json", "r") as file:
+def rollLetters():
+    WordProcessingObj = WordProcessing()
+    userLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    searchLetters = [userLetters[random.randint(0, 24)], userLetters[random.randint(0, 24)]]
+    words = nltk.corpus.words.words()
+    dataName = WordProcessingObj.generate(searchLetters)
+    with open(dataName, "r") as file:
     # read the JSON data from the file
     data = json.load(file)
-'''
+    return searchLetters, data
 
+def rerollLetters(searchLettersinput):
+    WordProcessingObj = WordProcessing()
+    userLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    
+    while (searchLettersinput != searchLetters)
+        searchLetters = [userLetters[random.randint(0, 24)], userLetters[random.randint(0, 24)]]
+    words = nltk.corpus.words.words()
+    dataName = WordProcessingObj.generate(searchLetters)
+    with open(dataName, "r") as file:
+    # read the JSON data from the file
+    data = json.load(file)
+    return searchLetters, data
 
-WordProcessingObj = WordProcessing()
+searchLetters, data = rollLetters()
+
 user_score = 0
 userLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-searchLetters = [userLetters[random.randint(0, 24)], userLetters[random.randint(0, 24)]]
-words = nltk.corpus.words.words()
-dataName = WordProcessingObj.generate(searchLetters)
-with open(dataName, "r") as file:
-    # read the JSON data from the file
-    data = json.load(file)
 done = True
 print("Rules:")
 print("Type an enlish word that contains the letters shown Ex: ...A...L...")
@@ -72,25 +84,28 @@ print("this kinda works, still a of bugs")
 while(done):
     displayBoard(searchLetters, user_score, userLetters)
     inputuser = input("Enter a word: ").upper()
-    inputuserList = list(inputuser)
-    #if (binary_search(data, inputuser) != -1):
-    searchLetters_copy = copy.deepcopy(searchLetters)
-    print("searchLetters", searchLetters)
-    print("searchLetters_copy", searchLetters_copy)
-    for i in inputuserList:
-        if i in userLetters:
-            userLetters.remove(i)
-            user_score += 10
+    if inputuser == "#REROLL":
+        searchLetters, data = rerollLetters(searchLetters)
+    else:
+        inputuserList = list(inputuser)
+        if (binary_search(data, inputuser) != -1):
+            searchLetters_copy = copy.deepcopy(searchLetters)
+            print("searchLetters", searchLetters)
+            print("searchLetters_copy", searchLetters_copy)
+            for i in inputuserList:
+                if i in userLetters:
+                    userLetters.remove(i)
+                    user_score += 10
+                else:
+                    if (i in searchLetters_copy):
+                        searchLetters_copy.remove(i)
+                    else:
+                        user_score -= 5
+            if len(userLetters) == 0:
+                done = False
         else:
-            if (i in searchLetters_copy):
-                searchLetters_copy.remove(i)
-            else:
-                user_score -= 5
-    if len(userLetters) == 0:
-        done = False
-    #else:
-    #    print(inputuser,"is not a valid word")
-
+            print(inputuser,"is not a valid word")
+    
 
 displayBoard(searchLetters, user_score, userLetters)
 
