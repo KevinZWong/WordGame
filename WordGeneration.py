@@ -66,18 +66,26 @@ class WordProcessing:
             json.dump(finalWord, file)
         return fileName
 
-    def findBestWords(self, searchLetters, userLetters, WordsList):
+    def findBestWord(self, searchLetters, userLetters, WordsList):
         maxFound = 0
         
-        for word in WordsList:
+        for i, word in enumerate(WordsList):
             charList = list(word)
             counter = 0
+            max = 0
+            maxIndex = 0
+            for j in searchLetters:
+                try: 
+                    charList.remove(j)
+                except:
+                    pass
             for letter in charList:
                 if letter in userLetters:
                     counter += 1
+            if counter > max:
+                max = counter
+                maxIndex = i
+        return WordList[maxIndex]
             
-
-        
-        pass
 
 
